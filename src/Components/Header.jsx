@@ -5,6 +5,7 @@ function Header() {
       <div className="toggle-container">
         <button>☷</button>
         <button>☰</button>
+        <button>▥</button>
       </div>
       <div className="cart">
         <button >🛒AddtoCart</button>

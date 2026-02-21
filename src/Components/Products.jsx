@@ -1,9 +1,9 @@
-function Products({products}){
+function Products({products = []}){
     return(
         <div className="wrapper">
         {products.map(item => (
           <div key={item.id} className="product-card">
-            <img src={item.image} className="img"></img>
+            <img src={item.image} className="img" alt={item.title}></img>
             <div className="product-info">
               <h4 className="name">{item.title}</h4>
               <p>$ {item.price}</p>
