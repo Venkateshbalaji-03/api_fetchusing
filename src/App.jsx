@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from './Components/Header';
 import Products from './Components/Products';
-import "./App.css";
+import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -9,6 +9,8 @@ function App() {
   const [currentPage,setCurrentPage] = useState(1);
   // set the items perpage
   const [itemsperpage,setItemsPerpage] = useState(10);
+  //grid view set in state
+  const [view,setView] =  useState("grid");
 
 
   useEffect(() => {
@@ -24,26 +26,40 @@ function App() {
   const CurrentProducts = products.slice(startIndex,startIndex + itemsperpage);
   // total page
   const TotalPages = Math.ceil(products.length / itemsperpage)
-
+  //show all products
+  const handleShowAll=()=>{
+    if(itemsperpage === products.length){
+      setItemsPerpage(10);
+      setCurrentPage(1);
+    }
+    else{
+      setItemsPerpage(products.length);
+      setCurrentPage(1);
+    }
+  }
   return (
     <>
-      <Header/>
+      <Header view={view} setView={setView}/>
 
-      <Products products={CurrentProducts}/>
+      <Products products={CurrentProducts} view={view}/>
       {/*button import*/}
       <div className="btn-container">
         <div className="btn-border">
-        <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev - 1)}
+        {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev - 1)}
         disabled={currentPage === 1}> Pervious</button>
-
+ */}
         {Array.from({length:TotalPages},
           (_, i)=>(
             <button className="btn-style" key={i} onClick={()=>
               setCurrentPage(i+1)}>
               {i+1}</button>
           ))}
-        <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev + 1)}
-        disabled={currentPage === TotalPages}> Next </button>
+        {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev + 1)}
+        disabled={currentPage === TotalPages}> Next </button> */}
+        {/*show all buttons */}
+        <button className="btn-style" onClick={handleShowAll}>
+          {itemsperpage === products.length ? "Show Less" : "Show All"}
+        </button>
         </div>
       </div>
     </>
