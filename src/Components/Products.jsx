@@ -7,7 +7,7 @@ function Products({products = [],view}){
                 <div className="product-info">
                   <h4 className="name">{item.title}</h4>
                   <p>$ {item.price}</p>
-                  <span>{item.category}</span>
+                  {/* <span>{item.category}</span> */}
                 </div>
               </div>
             ))}

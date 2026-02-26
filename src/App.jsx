@@ -19,7 +19,7 @@ function App() {
       .then(result => setProducts(result)); 
   }, []);
 
-// data render 
+// page render 
   //start page
   const startIndex = (currentPage - 1) * itemsperpage;
   //current page
@@ -43,6 +43,7 @@ function App() {
 
       <Products products={CurrentProducts} view={view}/>
       {/*button import*/}
+      <footer>
       <div className="btn-container">
         <div className="btn-border">
         {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev - 1)}
@@ -62,6 +63,7 @@ function App() {
         </button>
         </div>
       </div>
+      </footer>
     </>
   );
 }
