@@ -10,7 +10,7 @@ function App() {
   // set the items perpage
   const [itemsperpage,setItemsPerpage] = useState(10);
   //grid view set in state
-  const [view,setView] =  useState("grid");
+  const [view,setView] =  useState(()=>localStorage.getItem("view")||"grid");
 
 
   useEffect(() => {
@@ -18,6 +18,10 @@ function App() {
       .then(res => res.json())
       .then(result => setProducts(result)); 
   }, []);
+
+  useEffect(()=>{
+    localStorage.setItem("view",view);
+  },[view]);
 
 // page render 
   //start page
@@ -43,26 +47,26 @@ function App() {
 
       <Products products={CurrentProducts} view={view}/>
       {/*button import*/}
-      <footer>
-      <div className="btn-container">
-        <div className="btn-border">
-        {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev - 1)}
-        disabled={currentPage === 1}> Pervious</button>
- */}
-        {Array.from({length:TotalPages},
-          (_, i)=>(
-            <button className="btn-style" key={i} onClick={()=>
-              setCurrentPage(i+1)}>
-              {i+1}</button>
-          ))}
-        {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev + 1)}
-        disabled={currentPage === TotalPages}> Next </button> */}
-        {/*show all buttons */}
-        <button className="btn-style" onClick={handleShowAll}>
-          {itemsperpage === products.length ? "Show Less" : "Show All"}
-        </button>
+      <footer className="footer-section">
+        <div className="btn-container">
+          <div className="btn-border">
+          <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev - 1)}
+          disabled={currentPage === 1}> Pervious</button>
+
+          {Array.from({length:TotalPages},
+            (_,i)=>(
+              <button className="btn-style" key={i} onClick={()=>
+                setCurrentPage(i+1)}>
+                {i+1}</button>
+            ))}
+          {/* <button className="btn-style"onClick = {()=>setCurrentPage(prev=>prev + 1)}
+          disabled={currentPage === TotalPages}> Next </button> */}
+          {/*show all buttons */}
+          <button className="btn-style" onClick={handleShowAll}>
+            {itemsperpage === products.length ? "Show Less" : "Show All"}
+          </button>
+          </div>
         </div>
-      </div>
       </footer>
     </>
   );
